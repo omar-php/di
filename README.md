@@ -1,10 +1,10 @@
 # Omar Dependency Injector
 
-[![Packagist](https://img.shields.io/packagist/v/lencse/omar-di.svg)](https://packagist.org/packages/lencse/omar-di)
+[![Packagist](https://img.shields.io/packagist/v/omarphp/di.svg)](https://packagist.org/packages/omarphp/di)
 [![Build Status](https://travis-ci.org/omar-php/di.svg?branch=master)](https://travis-ci.org/omar-php/di)
 [![Coverage Status](https://coveralls.io/repos/github/omar-php/di/badge.svg?branch=master)](https://coveralls.io/github/omar-php/di?branch=master)
 [![StyleCI](https://github.styleci.io/repos/177289336/shield?branch=master)](https://github.styleci.io/repos/177289336)
-[![Infection MSI](https://badge.stryker-mutator.io/github.com/lencse/omar-di/master)](https://infection.github.io)
+[![Mutation testing badge](https://badge.stryker-mutator.io/github.com/omar-php/di/master)](https://stryker-mutator.github.io)
 
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=omar-di&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=omar-di)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=omar-di&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=omar-di)
