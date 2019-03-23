@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Lencse\Omar\DependencyInjection\Adapter;
+namespace Omar\DependencyInjection\Adapter;
 
 use Auryn\Injector;
-use Lencse\Omar\DependencyInjection\Configuration\ConfigParamSetupConfiguration;
-use Lencse\Omar\DependencyInjection\Configuration\ParamConfigurator;
-use Lencse\Omar\DependencyInjection\Configuration\WireParamSetupConfiguration;
+use Omar\DependencyInjection\Configuration\ConfigParamSetupConfiguration;
+use Omar\DependencyInjection\Configuration\ParamConfigurator;
+use Omar\DependencyInjection\Configuration\WireParamSetupConfiguration;
 
 final class AurynParamConfigurator implements ParamConfigurator
 {

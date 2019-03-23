@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Lencse\Omar\DependencyInjection\Configuration;
+namespace Omar\DependencyInjection\Configuration;
 
 interface Setting
 {

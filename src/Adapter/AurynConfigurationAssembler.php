@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Lencse\Omar\DependencyInjection\Adapter;
+namespace Omar\DependencyInjection\Adapter;
 
 use Auryn\Injector;
-use Lencse\Omar\DependencyInjection\Configuration\BindConfiguration;
-use Lencse\Omar\DependencyInjection\Configuration\ConfigurationAssembler;
-use Lencse\Omar\DependencyInjection\Configuration\FactoryConfiguration;
-use Lencse\Omar\DependencyInjection\Configuration\ProviderConfiguration;
-use Lencse\Omar\DependencyInjection\Configuration\SetupConfiguration;
+use Omar\DependencyInjection\Configuration\BindConfiguration;
+use Omar\DependencyInjection\Configuration\ConfigurationAssembler;
+use Omar\DependencyInjection\Configuration\FactoryConfiguration;
+use Omar\DependencyInjection\Configuration\ProviderConfiguration;
+use Omar\DependencyInjection\Configuration\SetupConfiguration;
 
 final class AurynConfigurationAssembler implements ConfigurationAssembler
 {

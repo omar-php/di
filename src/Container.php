@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Lencse\Omar\DependencyInjection;
+namespace Omar\DependencyInjection;
 
-use Lencse\Omar\DependencyInjection\Adapter\AurynContainerFactory;
-use Lencse\Omar\DependencyInjection\Configuration\ConfigBuilder;
+use Omar\DependencyInjection\Adapter\AurynContainerFactory;
+use Omar\DependencyInjection\Configuration\ConfigBuilder;
 use Psr\Container\ContainerInterface;
 
 final class Container

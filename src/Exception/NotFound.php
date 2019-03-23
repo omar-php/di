@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Lencse\Omar\DependencyInjection\Exception;
+namespace Omar\DependencyInjection\Exception;
 
 use LogicException;
 use Psr\Container\NotFoundExceptionInterface;

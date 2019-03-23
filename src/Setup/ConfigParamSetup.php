@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Lencse\Omar\DependencyInjection\Setup;
+namespace Omar\DependencyInjection\Setup;
 
-use Lencse\Omar\DependencyInjection\Configuration\ConfigParamSetupConfiguration;
-use Lencse\Omar\DependencyInjection\Configuration\ParamConfigurator;
-use Lencse\Omar\DependencyInjection\Configuration\ParamSetup;
+use Omar\DependencyInjection\Configuration\ConfigParamSetupConfiguration;
+use Omar\DependencyInjection\Configuration\ParamConfigurator;
+use Omar\DependencyInjection\Configuration\ParamSetup;
 
 final class ConfigParamSetup implements ParamSetup, ConfigParamSetupConfiguration
 {

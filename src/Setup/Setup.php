@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Lencse\Omar\DependencyInjection\Setup;
+namespace Omar\DependencyInjection\Setup;
 
-use Lencse\Omar\DependencyInjection\Configuration\ConfigurationAssembler;
-use Lencse\Omar\DependencyInjection\Configuration\ParamConfigurator;
-use Lencse\Omar\DependencyInjection\Configuration\ParamSetupConfiguration;
-use Lencse\Omar\DependencyInjection\Configuration\Setting;
-use Lencse\Omar\DependencyInjection\Configuration\SetupConfiguration;
+use Omar\DependencyInjection\Configuration\ConfigurationAssembler;
+use Omar\DependencyInjection\Configuration\ParamConfigurator;
+use Omar\DependencyInjection\Configuration\ParamSetupConfiguration;
+use Omar\DependencyInjection\Configuration\Setting;
+use Omar\DependencyInjection\Configuration\SetupConfiguration;
 
 final class Setup implements Setting, SetupConfiguration
 {

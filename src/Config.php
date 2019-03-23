@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace Lencse\Omar\DependencyInjection;
+namespace Omar\DependencyInjection;
 
 use Closure;
-use Lencse\Omar\DependencyInjection\Configuration\ConfigBuilder;
-use Lencse\Omar\DependencyInjection\Configuration\ConfigurationAssembler;
-use Lencse\Omar\DependencyInjection\Configuration\ParamSetupConfiguration;
-use Lencse\Omar\DependencyInjection\Configuration\Setting;
-use Lencse\Omar\DependencyInjection\Setup\Bind;
-use Lencse\Omar\DependencyInjection\Setup\Factory;
-use Lencse\Omar\DependencyInjection\Setup\ParamSetupCollection;
-use Lencse\Omar\DependencyInjection\Setup\Provider;
-use Lencse\Omar\DependencyInjection\Setup\SettingCollection;
-use Lencse\Omar\DependencyInjection\Setup\Setup;
+use Omar\DependencyInjection\Configuration\ConfigBuilder;
+use Omar\DependencyInjection\Configuration\ConfigurationAssembler;
+use Omar\DependencyInjection\Configuration\ParamSetupConfiguration;
+use Omar\DependencyInjection\Configuration\Setting;
+use Omar\DependencyInjection\Setup\Bind;
+use Omar\DependencyInjection\Setup\Factory;
+use Omar\DependencyInjection\Setup\ParamSetupCollection;
+use Omar\DependencyInjection\Setup\Provider;
+use Omar\DependencyInjection\Setup\SettingCollection;
+use Omar\DependencyInjection\Setup\Setup;
 
 final class Config implements ConfigBuilder
 {

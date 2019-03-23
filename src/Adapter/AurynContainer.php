@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Lencse\Omar\DependencyInjection\Adapter;
+namespace Omar\DependencyInjection\Adapter;
 
 use Auryn\InjectionException;
 use Auryn\Injector;
-use Lencse\Omar\DependencyInjection\Exception\ContainerSetupError;
-use Lencse\Omar\DependencyInjection\Exception\NotFound;
+use Omar\DependencyInjection\Exception\ContainerSetupError;
+use Omar\DependencyInjection\Exception\NotFound;
 use Psr\Container\ContainerInterface;
 use function class_exists;
 use function interface_exists;

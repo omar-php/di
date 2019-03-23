@@ -1,9 +1,9 @@
 # Omar Dependency Injector
 
 [![Packagist](https://img.shields.io/packagist/v/lencse/omar-di.svg)](https://packagist.org/packages/lencse/omar-di)
-[![Build Status](https://travis-ci.org/lencse/omar-di.svg?branch=master)](https://travis-ci.org/lencse/omar-di)
-[![Coverage Status](https://coveralls.io/repos/github/lencse/omar-di/badge.svg?branch=master)](https://coveralls.io/github/lencse/omar-di?branch=master)
-[![StyleCI](https://github.styleci.io/repos/176080296/shield?branch=master)](https://github.styleci.io/repos/176080296)
+[![Build Status](https://travis-ci.org/omar-php/di.svg?branch=master)](https://travis-ci.org/omar-php/di)
+[![Coverage Status](https://coveralls.io/repos/github/omar-php/di/badge.svg?branch=master)](https://coveralls.io/github/omar-php/di?branch=master)
+[![StyleCI](https://github.styleci.io/repos/177289336/shield?branch=master)](https://github.styleci.io/repos/177289336)
 [![Infection MSI](https://badge.stryker-mutator.io/github.com/lencse/omar-di/master)](https://infection.github.io)
 
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=omar-di&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=omar-di)
@@ -17,7 +17,7 @@ A [PSR-11](https://www.php-fig.org/psr/psr-11/) compliant Dependency Injector co
 With [composer](https://getcomposer.org/):
 
 ```bash
-composer require lencse/omar-di
+composer require omarphp/di
 ```
 
 ## Usage
@@ -27,7 +27,7 @@ composer require lencse/omar-di
 You can instantiate a class without a constructor parameter with zero configuration.
  
 ```php
-use Lencse\Omar\DependencyInjection\Container;
+use Omar\DependencyInjection\Container;
 
 class RockBand {}
 
@@ -42,7 +42,7 @@ assert($band instanceof RockBand);
 OmarDI can autowire parameter constructors.
 
 ```php
-use Lencse\Omar\DependencyInjection\Container;
+use Omar\DependencyInjection\Container;
 
 class Guitarist {}
 
@@ -64,8 +64,8 @@ assert($band instanceof RockBand);
 You can bind implementations to abstract classes and interfaces with configuration.
 
 ```php
-use Lencse\Omar\DependencyInjection\Config;
-use Lencse\Omar\DependencyInjection\Container;
+use Omar\DependencyInjection\Config;
+use Omar\DependencyInjection\Container;
 
 interface Guitarist {}
 abstract class Drummer {}
@@ -89,8 +89,8 @@ assert($drummer instanceof JohnBonham);
 Autowiring can use the bound parameters.
 
 ```php
-use Lencse\Omar\DependencyInjection\Config;
-use Lencse\Omar\DependencyInjection\Container;
+use Omar\DependencyInjection\Config;
+use Omar\DependencyInjection\Container;
 
 interface Guitarist {}
 abstract class Drummer {}
@@ -121,9 +121,9 @@ You can wire the constructor parameters by their name. That's how you can inject
 implementations for the same interfaces.
 
 ```php
-use Lencse\Omar\DependencyInjection\Config;
-use Lencse\Omar\DependencyInjection\Container;
-use Lencse\Omar\DependencyInjection\Setup;
+use Omar\DependencyInjection\Config;
+use Omar\DependencyInjection\Container;
+use Omar\DependencyInjection\Setup;
 
 interface Guitarist {}
 interface Drummer {}
@@ -165,9 +165,9 @@ assert($gnr instanceof GunsNRoses);
 Scalar values or object instances can be configured to constructor parameters by their name.
 
 ```php
-use Lencse\Omar\DependencyInjection\Config;
-use Lencse\Omar\DependencyInjection\Container;
-use Lencse\Omar\DependencyInjection\Setup;
+use Omar\DependencyInjection\Config;
+use Omar\DependencyInjection\Container;
+use Omar\DependencyInjection\Setup;
 
 class Guitarist
 {
@@ -191,9 +191,9 @@ assert($jimmyPage instanceof Guitarist);
 They can be used together.
 
 ```php
-use Lencse\Omar\DependencyInjection\Config;
-use Lencse\Omar\DependencyInjection\Container;
-use Lencse\Omar\DependencyInjection\Setup;
+use Omar\DependencyInjection\Config;
+use Omar\DependencyInjection\Container;
+use Omar\DependencyInjection\Setup;
 
 interface Guitar {}
 class LesPaul implements Guitar {}
@@ -221,8 +221,8 @@ You can set up your instances to be created with a callback function. These func
 get their parameters from the container. 
 
 ```php
-use Lencse\Omar\DependencyInjection\Config;
-use Lencse\Omar\DependencyInjection\Container;
+use Omar\DependencyInjection\Config;
+use Omar\DependencyInjection\Container;
 
 interface Guitar {}
 class LesPaul implements Guitar {}
@@ -250,8 +250,8 @@ You can create your instances with factories. These factories can be configured 
 in the constructor and in the __invoke() method.
 
 ```php
-use Lencse\Omar\DependencyInjection\Config;
-use Lencse\Omar\DependencyInjection\Container;
+use Omar\DependencyInjection\Config;
+use Omar\DependencyInjection\Container;
 
 interface Guitar {}
 class LesPaul implements Guitar {}

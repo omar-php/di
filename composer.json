@@ -1,5 +1,5 @@
 {
-    "name": "lencse/omar-di",
+    "name": "omarphp/di",
     "description": "OmarPHP Dependency Injector",
     "type": "library",
     "license": "MIT",
@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Lencse\\Omar\\DependencyInjection\\": "src/"
+            "Omar\\DependencyInjection\\": "src/"
         }
     },
     "autoload-dev": {

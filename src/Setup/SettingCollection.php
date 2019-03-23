@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Lencse\Omar\DependencyInjection\Setup;
+namespace Omar\DependencyInjection\Setup;
 
-use Lencse\Omar\DependencyInjection\Configuration\ConfigurationAssembler;
-use Lencse\Omar\DependencyInjection\Configuration\Setting;
+use Omar\DependencyInjection\Configuration\ConfigurationAssembler;
+use Omar\DependencyInjection\Configuration\Setting;
 
 final class SettingCollection
 {

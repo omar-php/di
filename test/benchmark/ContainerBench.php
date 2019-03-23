@@ -5,10 +5,10 @@ namespace Test\Benchmark;
 use Fixtures\A;
 use Fixtures\I1;
 use Fixtures\I2;
-use Lencse\Omar\DependencyInjection\Configuration\ConfigBuilder;
-use Lencse\Omar\DependencyInjection\Container;
-use Lencse\Omar\DependencyInjection\Exception\ContainerSetupError;
-use Lencse\Omar\DependencyInjection\Exception\NotFound;
+use Omar\DependencyInjection\Configuration\ConfigBuilder;
+use Omar\DependencyInjection\Container;
+use Omar\DependencyInjection\Exception\ContainerSetupError;
+use Omar\DependencyInjection\Exception\NotFound;
 use Psr\Container\ContainerInterface;
 use function assert;
 
