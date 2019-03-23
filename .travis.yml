@@ -58,9 +58,9 @@ jobs:
             - make vendor
           script:
             - make verify
+          after_success:
             - make coveralls
             - make sonar
-          after_success:
             - make verify-readme
 
         - stage: Analyze

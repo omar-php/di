@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [[ $TRAVIS_PULL_REQUEST == 'true' || $ANALYZE_SONAR != 'true' ]]; then
+    echo Skipping Sonarcloud analyze...
+    exit 0
+fi
+
 SONAR_CLI_ZIP=sonar-scanner-cli-3.3.0.1492-linux.zip
 SONAR_CLI_DIR=sonar-scanner-3.3.0.1492-linux
 SONAR_DIR=$HOME/.sonar-cli
@@ -15,35 +20,15 @@ fi
 
 echo "TRAVIS_BRANCH=$TRAVIS_BRANCH"
 echo "TRAVIS_TAG=$TRAVIS_TAG"
-echo "TRAVIS_PULL_REQUEST_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH"
-echo "TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST"
-echo "TRAVIS_PULL_REQUEST_SLUG=$TRAVIS_PULL_REQUEST_SLUG"
 
-if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
-    $SONAR_CLI_BIN/sonar-scanner \
-        -Dsonar.projectKey=$SONARCLOUD_PROJECT \
-        -Dsonar.organization=$SONARCLOUD_ORGANIZATION \
-        -Dsonar.sources=src \
-        -Dsonar.host.url=$SONARCLOUD_URL \
-        -Dsonar.login=$SONARCLOUD_LOGIN \
-        -Dsonar.exclusions=logs/**,vendor/** \
-        -Dsonar.php.tests.reportPath=logs/phpunit/test-report.xml \
-        -Dsonar.php.coverage.reportPaths=logs/phpunit/clover.xml \
-        -Dsonar.branch.name=$TRAVIS_BRANCH \
-        -Dsonar.projectVersion=$TRAVIS_TAG
-else
-    $SONAR_CLI_BIN/sonar-scanner \
-        -Dsonar.projectKey=$SONARCLOUD_PROJECT \
-        -Dsonar.organization=$SONARCLOUD_ORGANIZATION \
-        -Dsonar.sources=src \
-        -Dsonar.host.url=$SONARCLOUD_URL \
-        -Dsonar.login=$SONARCLOUD_LOGIN \
-        -Dsonar.exclusions=logs/**,vendor/** \
-        -Dsonar.php.tests.reportPath=logs/phpunit/test-report.xml \
-        -Dsonar.php.coverage.reportPaths=logs/phpunit/clover.xml \
-        -Dsonar.pullrequest.branch=$TRAVIS_PULL_REQUEST_BRANCH \
-        -Dsonar.pullrequest.key=$TRAVIS_PULL_REQUEST \
-        -Dsonar.pullrequest.base=$TRAVIS_BRANCH \
-        -Dsonar.pullrequest.github.repository=$TRAVIS_PULL_REQUEST_SLUG
-fi
-
+$SONAR_CLI_BIN/sonar-scanner \
+    -Dsonar.projectKey=$SONARCLOUD_PROJECT \
+    -Dsonar.organization=$SONARCLOUD_ORGANIZATION \
+    -Dsonar.sources=src \
+    -Dsonar.host.url=$SONARCLOUD_URL \
+    -Dsonar.login=$SONARCLOUD_LOGIN \
+    -Dsonar.exclusions=logs/**,vendor/** \
+    -Dsonar.php.tests.reportPath=logs/phpunit/test-report.xml \
+    -Dsonar.php.coverage.reportPaths=logs/phpunit/clover.xml \
+    -Dsonar.branch.name=$TRAVIS_BRANCH \
+    -Dsonar.projectVersion=$TRAVIS_TAG
