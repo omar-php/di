@@ -16,3 +16,4 @@
 /LICENSE                    export-ignore
 /docs                       export-ignore
 /phpbench.json              export-ignore
+/verify-readme              export-ignore
