@@ -6,9 +6,9 @@
 [![StyleCI](https://github.styleci.io/repos/177289336/shield?branch=master)](https://github.styleci.io/repos/177289336)
 [![Mutation testing badge](https://badge.stryker-mutator.io/github.com/omar-php/di/master)](https://stryker-mutator.github.io)
 
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=omar-di&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=omar-di)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=omar-di&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=omar-di)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=omar-di&metric=alert_status)](https://sonarcloud.io/dashboard?id=omar-di)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=omar-php_di&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=omar-php_di)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=omar-php_di&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=omar-php_di)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=omar-php_di&metric=alert_status)](https://sonarcloud.io/dashboard?id=omar-php_di)
 
 A [PSR-11](https://www.php-fig.org/psr/psr-11/) compliant Dependency Injector component
 
