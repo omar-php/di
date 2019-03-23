@@ -20,7 +20,7 @@ sonar: logs/phpunit
 	./sonar.sh
 
 benchmark: vendor
-	vendor/bin/phpbench run  --revs=10000 --iterations=50 --report=aggregate
+	vendor/bin/phpbench run  --revs=50 --iterations=10 --report=aggregate
 
 benchmark-trace: vendor
 	vendor/bin/phpbench xdebug:trace --extension="PhpBench\\Extensions\\XDebug\\XDebugExtension"
