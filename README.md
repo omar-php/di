@@ -282,8 +282,6 @@ class RockBandFactory
     {
         return new RockBand(new Guitarist($guitar), $this->drummer);
     }
-
-
 }
 
 $config = Config::init()
