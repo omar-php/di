@@ -60,6 +60,8 @@ jobs:
             - make verify
             - make coveralls
             - make sonar
+          after_success:
+            - make verify-readme
 
         - stage: Analyze
           name: Mutation test

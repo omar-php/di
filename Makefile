@@ -1,4 +1,4 @@
-.PHONY: test coverage min-coverage clean cs cs-fix dev coveralls
+.PHONY: test coverage min-coverage clean cs cs-fix dev coveralls verify-readme
 .PHONY: mnd psalm phpmetrics infection verify require phpmd sonar
 
 vendor: composer.json composer.lock
@@ -66,3 +66,6 @@ require: vendor
 
 phpmd: vendor
 	vendor/bin/phpmd src/ text phpmd.xml
+
+verify-readme: vendor README.md
+	./verify-readme

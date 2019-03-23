@@ -39,6 +39,8 @@
         "phpmd/phpmd": "^2.6",
         "lencse/omar-coding-standard": "^0.1.1",
         "php-coveralls/php-coveralls": "^2.1",
-        "phpbench/phpbench": "^0.16.9"
+        "phpbench/phpbench": "^0.16.9",
+        "league/commonmark": "^0.18.3",
+        "paquettg/php-html-parser": "^2.0"
     }
 }

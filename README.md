@@ -74,8 +74,8 @@ class JimmyPage implements Guitarist {}
 class JohnBonham extends Drummer {}
 
 $config = Config::init()
-    ->target(Guitarist::class)->bind(JimmyPage::class)
-    ->target(Drummer::class)->bind(JohnBonham::class);
+    ->bind(Guitarist::class, JimmyPage::class)
+    ->bind(Drummer::class, JohnBonham::class);
 
 $container = Container::create($config);
 
@@ -104,8 +104,8 @@ class RockBand
 }
 
 $config = Config::init()
-    ->target(Guitarist::class)->bind(JimmyPage::class)
-    ->target(Drummer::class)->bind(JohnBonham::class);
+    ->bind(Guitarist::class, JimmyPage::class)
+    ->bind(Drummer::class, JohnBonham::class);
 
 $container = Container::create($config);
 
@@ -135,42 +135,29 @@ class StevenAdler implements Drummer {}
 
 abstract class RockBand
 {
-    /** @var Guitarist */
-    public $guitarist;
-
-    /** @var Drummer */
-    public $drummer;
-
-    public function __construct(Guitarist $guitarist, Drummer $drummer) {
-        $this->guitarist = $guitarist;
-        $this->drummer = $drummer;
-    }
+    public function __construct(Guitarist $guitarist, Drummer $drummer) {}
 }
 
 class LedZeppelin extends RockBand {}
 class GunsNRoses extends RockBand {}
 
 $config = Config::init()
-    ->target(LedZeppelin::class)->setup(
-        Setup::wire('guitarist', JimmyPage::class)
-            ->wire('drummer', JohnBonham::class)
+    ->setup(LedZeppelin::class, Config::params()
+        ->wire('guitarist', JimmyPage::class)
+        ->wire('drummer', JohnBonham::class)
     )
-    ->target(GunsNRoses::class)->setup(
-        Setup::wire('guitarist', Slash::class)
-            ->wire('drummer', StevenAdler::class)
+    ->setup(GunsNRoses::class, Config::params()
+        ->wire('guitarist', Slash::class)
+        ->wire('drummer', StevenAdler::class)
     );
 
 $container = Container::create($config);
 
-/** @var LedZeppelin $ledzep */
 $ledzep = $container->get(LedZeppelin::class);
-assert($ledzep->guitarist instanceof JimmyPage);
-assert($ledzep->drummer instanceof JohnBonham);
+assert($ledzep instanceof LedZeppelin);
 
-/** @var GunsNRoses $gnr */
 $gnr = $container->get(GunsNRoses::class);
-assert($gnr->guitarist instanceof Slash);
-assert($gnr->drummer instanceof StevenAdler);
+assert($gnr instanceof GunsNRoses);
 ```
 
 #### Configure values to constructor parameters
@@ -184,30 +171,19 @@ use Lencse\Omar\DependencyInjection\Setup;
 
 class Guitarist
 {
-    /** @var string */
-    public $guitarType;
-
-    /** @var int */
-    public $bornInYear;
-
-    public function __construct(string $guitarType, int $bornInYear) {
-        $this->guitarType = $guitarType;
-        $this->bornInYear = $bornInYear;
-    }
+    public function __construct(string $guitarType, int $bornInYear) {}
 }
 
 $config = Config::init()
-    ->target(Guitarist::class)->setup(
-        Setup::config('guitarType', 'Les Paul')
-            ->config('bornInYear', 1944)
+    ->setup(Guitarist::class, Config::params()
+        ->config('guitarType', 'Les Paul')
+        ->config('bornInYear', 1944)
     );
 
 $container = Container::create($config);
 
-/** @var Guitarist $jimmy */
-$jimmy = $container->get(Guitarist::class);
-assert('Les Paul' === $jimmy->guitarType);
-assert(1944 === $jimmy->bornInYear);
+$jimmyPage = $container->get(Guitarist::class);
+assert($jimmyPage instanceof Guitarist);
 ```
 
 #### Configured and wired parameters
@@ -224,30 +200,19 @@ class LesPaul implements Guitar {}
 
 class Guitarist
 {
-    /** @var Guitar */
-    public $guitar;
-
-    /** @var int */
-    public $bornInYear;
-
-    public function __construct(Guitar $guitar, int $bornInYear) {
-        $this->guitar = $guitar;
-        $this->bornInYear = $bornInYear;
-    }
+    public function __construct(Guitar $guitar, int $bornInYear) {}
 }
 
 $config = Config::init()
-    ->target(Guitarist::class)->setup(
-        Setup::wire('guitar', LesPaul::class)
-            ->config('bornInYear', 1944)
+    ->setup(Guitarist::class, Config::params()
+        ->wire('guitar', LesPaul::class)
+        ->config('bornInYear', 1944)
     );
 
 $container = Container::create($config);
 
-/** @var Guitarist $jimmy */
-$jimmy = $container->get(Guitarist::class);
-assert($jimmy->guitar instanceof LesPaul);
-assert(1944 === $jimmy->bornInYear);
+$jimmyPage = $container->get(Guitarist::class);
+assert($jimmyPage instanceof Guitarist);
 ```
 
 ### Provider callback functions
@@ -264,30 +229,19 @@ class LesPaul implements Guitar {}
 
 class Guitarist
 {
-    /** @var Guitar */
-    public $guitar;
-
-    /** @var int */
-    public $bornInYear;
-
-    public function __construct(Guitar $guitar, int $bornInYear) {
-        $this->guitar = $guitar;
-        $this->bornInYear = $bornInYear;
-    }
+    public function __construct(Guitar $guitar, int $bornInYear) {}
 }
 
 $config = Config::init()
-    ->target(Guitar::class)->bind(LesPaul::class)
-    ->target(Guitarist::class)->provider(function (Guitar $guitar) {
+    ->bind(Guitar::class, LesPaul::class)
+    ->provider(Guitarist::class, function (Guitar $guitar) {
         return new Guitarist($guitar, 1944);
     });
 
 $container = Container::create($config);
 
-/** @var Guitarist $jimmy */
-$jimmy = $container->get(Guitarist::class);
-assert($jimmy->guitar instanceof LesPaul);
-assert(1944 === $jimmy->bornInYear);
+$jimmyPage = $container->get(Guitarist::class);
+assert($jimmyPage instanceof Guitarist);
 ```
 
 ### Factory classes
@@ -304,12 +258,7 @@ class LesPaul implements Guitar {}
 
 class Guitarist
 {
-    /** @var Guitar */
-    public $guitar;
-
-    public function __construct(Guitar $guitar) {
-        $this->guitar = $guitar;
-    }
+    public function __construct(Guitar $guitar) {}
 }
 
 interface Drummer {}
@@ -317,16 +266,7 @@ class JohnBonham implements Drummer {}
 
 class RockBand
 {
-    /** @var Guitarist */
-    public $guitarist;
-
-    /** @var Drummer */
-    public $drummer;
-
-    public function __construct(Guitarist $guitarist, Drummer $drummer) {
-        $this->guitarist = $guitarist;
-        $this->drummer = $drummer;
-    }
+    public function __construct(Guitarist $guitarist, Drummer $drummer) {}
 }
 
 class RockBandFactory
@@ -347,15 +287,14 @@ class RockBandFactory
 }
 
 $config = Config::init()
-    ->target(Drummer::class)->bind(JohnBonham::class)
-    ->target(Guitar::class)->bind(LesPaul::class)
-    ->target(RockBand::class)->factory(RockBandFactory::class);
+    ->bind(Drummer::class, JohnBonham::class)
+    ->bind(Guitar::class, LesPaul::class)
+    ->factory(RockBand::class, RockBandFactory::class);
 
 $container = Container::create($config);
 
-/** @var RockBand $band */
 $band = $container->get(RockBand::class);
-assert($band->guitarist->guitar instanceof LesPaul);
+assert($band instanceof RockBand);
 ```
 
 ## Contributing
