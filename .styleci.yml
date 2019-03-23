@@ -1,0 +1,9 @@
+preset: psr2
+risky: true
+finder:
+    exclude:
+        - vendor
+        - test/unit/fixtures
+        - test/benchmark/fixtures
+        - .example-scripts
+    name: "*.php"

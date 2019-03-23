@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ruleset
+        name="OmarDI"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd"
+>
+    <description>OmarDI coding standard</description>
+
+    <exclude-pattern>test/**/fixtures/**</exclude-pattern>
+
+    <rule ref="Omar" />
+
+    <rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration">
+        <exclude-pattern>src/Adapter/AurynContainer.php</exclude-pattern>
+    </rule>
+</ruleset>
