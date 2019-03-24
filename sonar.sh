@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ $TRAVIS_PULL_REQUEST == 'true' || $ANALYZE_SONAR != 'true' ]]; then
+if [[ $TRAVIS_PULL_REQUEST != 'false' || $ANALYZE_SONAR != 'true' ]]; then
     echo Skipping Sonarcloud analyze...
     exit 0
 fi
