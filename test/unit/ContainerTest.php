@@ -227,6 +227,17 @@ class ContainerTest extends TestCase
         $this->assertEquals(1, $obj1->num);
     }
 
+    public function testOverride(): void
+    {
+        $container = $this->container(
+            Config::init()
+                ->bind(I1::class, A::class)
+                ->bind(I1::class, F::class)
+        );
+        $obj = $container->get(I1::class);
+        $this->assertTrue($obj instanceof  F);
+    }
+
     private function container(?ConfigBuilder $config = null): ContainerInterface
     {
         return Container::create($config);
