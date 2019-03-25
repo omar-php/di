@@ -1,5 +1,6 @@
 .PHONY: test coverage min-coverage clean cs cs-fix dev coveralls verify-readme
-.PHONY: mnd psalm phpmetrics infection verify require phpmd sonar
+.PHONY: mnd psalm phpmetrics infection verify require phpmd sonar benchmark
+.PHONY: benchmark-trace
 
 vendor: composer.json composer.lock
 	composer install
