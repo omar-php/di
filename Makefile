@@ -1,11 +1,11 @@
 .PHONY: test coverage min-coverage clean cs cs-fix dev coveralls verify-readme
 .PHONY: mnd psalm phpmetrics infection verify require phpmd sonar benchmark
-.PHONY: benchmark-trace
+.PHONY: benchmark-trace no-leaks
 
 vendor: composer.json composer.lock
 	composer install
 
-verify: coverage min-coverage cs phpstan phpmd psalm require mnd phpmetrics
+verify: coverage min-coverage cs phpstan phpmd psalm require mnd no-leaks phpmetrics
 
 dev: cs-fix verify
 
@@ -70,3 +70,6 @@ phpmd: vendor
 
 verify-readme: vendor README.md
 	./verify-readme
+
+no-leaks: vendor
+	vendor/bin/roave-no-leaks
