@@ -129,9 +129,9 @@ interface Guitarist {}
 interface Drummer {}
 
 class JimmyPage implements Guitarist {}
-class Slash implements Guitarist {}
+class George implements Guitarist {}
 class JohnBonham implements Drummer {}
-class StevenAdler implements Drummer {}
+class Ringo implements Drummer {}
 
 abstract class RockBand
 {
@@ -139,16 +139,16 @@ abstract class RockBand
 }
 
 class LedZeppelin extends RockBand {}
-class GunsNRoses extends RockBand {}
+class Beatles extends RockBand {}
 
 $config = Config::init()
     ->setup(LedZeppelin::class, Config::params()
         ->wire('guitarist', JimmyPage::class)
         ->wire('drummer', JohnBonham::class)
     )
-    ->setup(GunsNRoses::class, Config::params()
-        ->wire('guitarist', Slash::class)
-        ->wire('drummer', StevenAdler::class)
+    ->setup(Beatles::class, Config::params()
+        ->wire('guitarist', George::class)
+        ->wire('drummer', Ringo::class)
     );
 
 $container = Container::create($config);
@@ -156,8 +156,8 @@ $container = Container::create($config);
 $ledzep = $container->get(LedZeppelin::class);
 assert($ledzep instanceof LedZeppelin);
 
-$gnr = $container->get(GunsNRoses::class);
-assert($gnr instanceof GunsNRoses);
+$beatles = $container->get(Beatles::class);
+assert($beatles instanceof Beatles);
 ```
 
 #### Configure values to constructor parameters
