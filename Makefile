@@ -54,7 +54,7 @@ mnd: vendor
 	vendor/bin/phpmnd --non-zero-exit-on-violation src
 
 psalm: vendor
-	vendor/bin/psalm
+	vendor/bin/psalm --shepherd
 
 phpmetrics: vendor logs/phpunit
 	vendor/bin/phpmetrics \

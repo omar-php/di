@@ -5,6 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/omar-php/di/badge.svg?branch=master)](https://coveralls.io/github/omar-php/di?branch=master)
 [![StyleCI](https://github.styleci.io/repos/177289336/shield?branch=master)](https://github.styleci.io/repos/177289336)
 [![Mutation testing badge](https://badge.stryker-mutator.io/github.com/omar-php/di/master)](https://stryker-mutator.github.io)
+[![Psalm type coverage](https://shepherd.dev/github/omar-php/di/coverage.svg)](https://github.com/vimeo/psalm)
 
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=omar-php_di&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=omar-php_di)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=omar-php_di&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=omar-php_di)
