@@ -1,0 +1,304 @@
+# Omar Dependency Injector
+
+[![Packagist](https://img.shields.io/packagist/v/omarphp/di.svg)](https://packagist.org/packages/omarphp/di)
+[![Build Status](https://travis-ci.org/omar-php/di.svg?branch=master)](https://travis-ci.org/omar-php/di)
+[![Coverage Status](https://coveralls.io/repos/github/omar-php/di/badge.svg?branch=master)](https://coveralls.io/github/omar-php/di?branch=master)
+[![StyleCI](https://github.styleci.io/repos/177289336/shield?branch=master)](https://github.styleci.io/repos/177289336)
+[![Mutation testing badge](https://badge.stryker-mutator.io/github.com/omar-php/di/master)](https://stryker-mutator.github.io)
+
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=omar-php_di&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=omar-php_di)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=omar-php_di&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=omar-php_di)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=omar-php_di&metric=alert_status)](https://sonarcloud.io/dashboard?id=omar-php_di)
+
+A [PSR-11](https://www.php-fig.org/psr/psr-11/) compliant Dependency Injector component
+
+## Installation
+
+With [composer](https://getcomposer.org/):
+
+```bash
+composer require omarphp/di
+```
+
+## Usage
+
+### Building a simple class
+
+You can instantiate a class without a constructor parameter with zero configuration.
+ 
+```php
+use Omar\DependencyInjection\Container;
+
+class RockBand {}
+
+$container = Container::create();
+
+$band = $container->get(RockBand::class);
+assert($band instanceof RockBand);
+```
+
+### Autowiring
+
+OmarDI can autowire parameter constructors.
+
+```php
+use Omar\DependencyInjection\Container;
+
+class Guitarist {}
+
+class Drummer {}
+
+class RockBand
+{
+    public function __construct(Guitarist $guitarist, Drummer $drummer) {}
+}
+
+$container = Container::create();
+
+$band = $container->get(RockBand::class);
+assert($band instanceof RockBand);
+```
+
+### Binding
+
+You can bind implementations to abstract classes and interfaces with configuration.
+
+```php
+use Omar\DependencyInjection\Config;
+use Omar\DependencyInjection\Container;
+
+interface Guitarist {}
+abstract class Drummer {}
+
+class JimmyPage implements Guitarist {}
+class JohnBonham extends Drummer {}
+
+$config = Config::init()
+    ->bind(Guitarist::class, JimmyPage::class)
+    ->bind(Drummer::class, JohnBonham::class);
+
+$container = Container::create($config);
+
+$guitarist = $container->get(Guitarist::class);
+$drummer = $container->get(Drummer::class);
+
+assert($guitarist instanceof JimmyPage);
+assert($drummer instanceof JohnBonham);
+```
+
+Autowiring can use the bound parameters.
+
+```php
+use Omar\DependencyInjection\Config;
+use Omar\DependencyInjection\Container;
+
+interface Guitarist {}
+abstract class Drummer {}
+
+class JimmyPage implements Guitarist {}
+class JohnBonham extends Drummer {}
+
+class RockBand
+{
+    public function __construct(Guitarist $guitarist, Drummer $drummer) {}
+}
+
+$config = Config::init()
+    ->bind(Guitarist::class, JimmyPage::class)
+    ->bind(Drummer::class, JohnBonham::class);
+
+$container = Container::create($config);
+
+$band = $container->get(RockBand::class);
+assert($band instanceof RockBand);
+```
+
+### Setup constructor parameters
+
+#### Wire implementations to constructor parameter
+
+You can wire the constructor parameters by their name. That's how you can inject different
+implementations for the same interfaces.
+
+```php
+use Omar\DependencyInjection\Config;
+use Omar\DependencyInjection\Container;
+use Omar\DependencyInjection\Setup;
+
+interface Guitarist {}
+interface Drummer {}
+
+class JimmyPage implements Guitarist {}
+class George implements Guitarist {}
+class JohnBonham implements Drummer {}
+class Ringo implements Drummer {}
+
+abstract class RockBand
+{
+    public function __construct(Guitarist $guitarist, Drummer $drummer) {}
+}
+
+class LedZeppelin extends RockBand {}
+class Beatles extends RockBand {}
+
+$config = Config::init()
+    ->setup(LedZeppelin::class, Config::params()
+        ->wire('guitarist', JimmyPage::class)
+        ->wire('drummer', JohnBonham::class)
+    )
+    ->setup(Beatles::class, Config::params()
+        ->wire('guitarist', George::class)
+        ->wire('drummer', Ringo::class)
+    );
+
+$container = Container::create($config);
+
+$ledzep = $container->get(LedZeppelin::class);
+assert($ledzep instanceof LedZeppelin);
+
+$beatles = $container->get(Beatles::class);
+assert($beatles instanceof Beatles);
+```
+
+#### Configure values to constructor parameters
+
+Scalar values or object instances can be configured to constructor parameters by their name.
+
+```php
+use Omar\DependencyInjection\Config;
+use Omar\DependencyInjection\Container;
+use Omar\DependencyInjection\Setup;
+
+class Guitarist
+{
+    public function __construct(string $guitarType, int $bornInYear) {}
+}
+
+$config = Config::init()
+    ->setup(Guitarist::class, Config::params()
+        ->config('guitarType', 'Les Paul')
+        ->config('bornInYear', 1944)
+    );
+
+$container = Container::create($config);
+
+$jimmyPage = $container->get(Guitarist::class);
+assert($jimmyPage instanceof Guitarist);
+```
+
+#### Configured and wired parameters
+
+They can be used together.
+
+```php
+use Omar\DependencyInjection\Config;
+use Omar\DependencyInjection\Container;
+use Omar\DependencyInjection\Setup;
+
+interface Guitar {}
+class LesPaul implements Guitar {}
+
+class Guitarist
+{
+    public function __construct(Guitar $guitar, int $bornInYear) {}
+}
+
+$config = Config::init()
+    ->setup(Guitarist::class, Config::params()
+        ->wire('guitar', LesPaul::class)
+        ->config('bornInYear', 1944)
+    );
+
+$container = Container::create($config);
+
+$jimmyPage = $container->get(Guitarist::class);
+assert($jimmyPage instanceof Guitarist);
+```
+
+### Provider callback functions
+
+You can set up your instances to be created with a callback function. These functions can also
+get their parameters from the container. 
+
+```php
+use Omar\DependencyInjection\Config;
+use Omar\DependencyInjection\Container;
+
+interface Guitar {}
+class LesPaul implements Guitar {}
+
+class Guitarist
+{
+    public function __construct(Guitar $guitar, int $bornInYear) {}
+}
+
+$config = Config::init()
+    ->bind(Guitar::class, LesPaul::class)
+    ->provider(Guitarist::class, function (Guitar $guitar) {
+        return new Guitarist($guitar, 1944);
+    });
+
+$container = Container::create($config);
+
+$jimmyPage = $container->get(Guitarist::class);
+assert($jimmyPage instanceof Guitarist);
+```
+
+### Factory classes
+
+You can create your instances with factories. These factories can be configured with the parameters
+in the constructor and in the __invoke() method.
+
+```php
+use Omar\DependencyInjection\Config;
+use Omar\DependencyInjection\Container;
+
+interface Guitar {}
+class LesPaul implements Guitar {}
+
+class Guitarist
+{
+    public function __construct(Guitar $guitar) {}
+}
+
+interface Drummer {}
+class JohnBonham implements Drummer {}
+
+class RockBand
+{
+    public function __construct(Guitarist $guitarist, Drummer $drummer) {}
+}
+
+class RockBandFactory
+{
+    /** @var Drummer */
+    private $drummer;
+
+    public function __construct(Drummer $drummer) {
+        $this->drummer = $drummer;
+    }
+
+    public function __invoke(Guitar $guitar): RockBand
+    {
+        return new RockBand(new Guitarist($guitar), $this->drummer);
+    }
+}
+
+$config = Config::init()
+    ->bind(Drummer::class, JohnBonham::class)
+    ->bind(Guitar::class, LesPaul::class)
+    ->factory(RockBand::class, RockBandFactory::class);
+
+$container = Container::create($config);
+
+$band = $container->get(RockBand::class);
+assert($band instanceof RockBand);
+```
+
+## Contributing
+
+* Pull requests are welcome.
+    * For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)

@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+
+namespace Verify;
+
+use League\CommonMark\CommonMarkConverter;
+use PHPHtmlParser\Dom;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$converter = new CommonMarkConverter();
+$html = $converter->convertToHtml(file_get_contents(__DIR__. '/README.md'));
+$dom = new Dom();
+$dom->load($html, [
+    'removeDoubleSpace' => false,
+    'preserveLineBreaks' => true,
+]);
+$codeFragments = $dom->find('code.language-php');
+
+shell_exec('rm -rf .tmp');
+shell_exec('mkdir .tmp');
+
+$header = <<<EOF
+<?php
+
+namespace Readme;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+EOF;
+
+foreach ($codeFragments as $i => $codeFragment) {
+    /** @var Dom\HtmlNode $codeFragment */
+    $php = \htmlspecialchars_decode($codeFragment->text());
+    $file = __DIR__ . '/.tmp/file' . $i . '.php';
+    file_put_contents($file, $header . $php);
+    shell_exec('php ' . $file);
+}
+
+return 0;
